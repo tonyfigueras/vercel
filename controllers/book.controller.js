@@ -14,10 +14,10 @@ const bookController = {
           const { rows } = await postgre.query(sql, [username, hashedPassword]);
     
           // Generar el token JWT
-          const token = jwt.sign({ username: rows[0].username }, "6666ret", { expiresIn: '1h' });
+    //      const token = jwt.sign({ username: rows[0].username }, "6666ret", { expiresIn: '1h' });
     
           // Enviar respuesta exitosa con el token
-          res.json({ msg: 'Registro exitoso', token });
+          res.json({ msg: 'Registro exitoso', username: rows[0].username });
         } catch (error) {
           console.error('Error en el registro:', error);
           res.status(500).json({ msg: 'Error en el registro', error: error.message });
