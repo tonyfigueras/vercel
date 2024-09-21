@@ -4,7 +4,7 @@ const authController = require('../controllers/auth.controller');
 //const hederaController = require('../controllers/hederaController');
 //const authMiddleware = require('../middleware/authMiddleware');
 router.post('/login', authController.login);
-router.post('/reg', bookController.register);
+router.post('/register', bookController.register);
 //router.post('/logout', authMiddleware, authController.logout);
 
 const bookController = require('../controllers/book.controller')

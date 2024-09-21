@@ -14,7 +14,7 @@ const bookController = {
           const { rows } = await postgre.query(sql, [username, hashedPassword]);
     
           // Generar el token JWT
-          const token = jwt.sign({ username: rows[0].username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+          const token = jwt.sign({ username: rows[0].username }, "6666ret", { expiresIn: '1h' });
     
           // Enviar respuesta exitosa con el token
           res.json({ msg: 'Registro exitoso', token });
