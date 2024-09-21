@@ -27,6 +27,7 @@ const authController = {
 
   login: async (req, res) => {
     try {
+      res.json({msg: 'login exitoso' });
       const { username, password } = req.body;
 
       // Buscar el usuario en la base de datos
