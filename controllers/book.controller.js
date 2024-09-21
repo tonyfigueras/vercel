@@ -1,5 +1,28 @@
-const postgre = require('../database')
+const postgre = require('../database');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
 const bookController = {
+    register: async (req, res) => {
+        try {
+          const { username, password } = req.body;
+    
+          // Hashear la contraseña
+          const hashedPassword = await bcrypt.hash(password, 10);
+    
+          // Insertar usuario en la base de datos
+          const sql = 'INSERT INTO users(username, password) VALUES($1, $2) RETURNING *';
+          const { rows } = await postgre.query(sql, [username, hashedPassword]);
+    
+          // Generar el token JWT
+          const token = jwt.sign({ username: rows[0].username }, process.env.JWT_SECRET, { expiresIn: '1h' });
+    
+          // Enviar respuesta exitosa con el token
+          res.json({ msg: 'Registro exitoso', token });
+        } catch (error) {
+          console.error('Error en el registro:', error);
+          res.status(500).json({ msg: 'Error en el registro', error: error.message });
+        }
+      },
     getAll: async(req, res) => {
         try {
             const { rows } = await postgre.query("select * from books")
